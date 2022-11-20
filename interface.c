@@ -66,9 +66,6 @@ int menu_temporada(int temporada_selecionda){
 
 /* ############################################################################## */
 int main(){
-int temporada_selecionada;
-int episodio_selecionado;
-int opcao;
 printf("\nBem vindo ao Sistema de Consultas de Game_of_Thrones\n");
 menu_principal();
 }
