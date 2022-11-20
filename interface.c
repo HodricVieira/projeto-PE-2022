@@ -1,121 +1,92 @@
 #include <stdio.h>
 #include "funcoes.h"
 
-int ver_ep(int eps, int temp){
-  int volta;
-  bool close_ver_ep;
 
-  /* Funcao para o resumo do episodio*/
-  
-  do {
-  printf("Digite 0 para voltar a tela principal ou 1 para voltar para seleção de episodios:/n");
-  scanf("%d", &volta);
-  if (volta == 0 or volta == 1)
-    close_ver_ep = TRUE;
-  else 
-    printf("Comando invalido digite novamente./n");
-  }while (close_ver_ep != TRUE);
-  return volta;
-}
-
-/* ##################################################################################### */
-int interf_temp(int tempr){
-  int it, ep_max, vp;
-  bool closeit, closeep;
-  do{
-    printf("Digite 1 para ter a visão geral da temporada, 2 para escolher o episodio para visualizar ou 0 para voltar:/n");
-    scanf("%d", &it);
-    switch (it){
-    case 0: closeit = TRUE;
-      break;
-    
-    case 1: /* Função da visão geral */
-      break;
-    
-    case 2: 
-      do {
-      if (tempr == 7){
-        printf("Digite o numero do episodio de 1 a 7 ");
-        ep_max = 7}
-      else if (tempr == 8){
-        printf("Digite o numero do episodio de 1 a 6 ");
-        ep_max = 6}
-      else{
-        printf("Digite o numero do episodio de 1 a 10 ");
-        ep_max = 10}
-      printf("ou digite 0 para voltar/n");
-      scanf("%d", &ep);
-      if (ep >= 1 or ep <= ep_max){
-        vp = ver_ep(ep, tempr);
-        if (vp == 0)
-          closeep = TRUE;
-          closeit = TRUE;
-      }else if (ep == 0)
-        closeep = TRUE;
-      else 
-        printf("Comando invalido digite novamente./n");
-      } while (closeep != TRUE);
-      break;
-
-    default: printf("Comando Invalido digite novamente./n");
-      break;
-  }while (closeit != TRUE);
-  return;
-}
-}
-/* ############################################################################## */
-int main(){
-int ip, temprd;
-bool closeip, closetemp;
-do{
-printf("Digite 1 para ter a visão geral, 2 para escolher a temporada para visualizar ou 0 para fechar o programa/n");
-scanf("%d", &ip);
-  switch (ip){
-  case 0: closeip = TRUE;
+int menu_principal(){
+  int opcao;
+  printf("\n1-Selecionar Temporada\n2-Visao Geral\n3-Fechar Programa\n");
+  printf("Selecione uma opcao: ");
+  scanf("%i", &opcao);
+  switch (opcao)
+  {
+  case 1:
+    /*Chamar a função que vai printar as temporadas, a função deve retornar o numero da temporada
+    selecionda, a partir daí chama a função menu temporada*/
+    printf("  Lista das temporadas\n");
+    printf("  Temporada tal selecionda\n");
+    menu_temporada(1);
     break;
-  
-  case 1: /* Função da visão geral */
+  case 2:
+    /*Chamar a função que vai printar o resumo geral*/
+    printf("  Resumo Geral");
+    menu_principal();
     break;
-  
-  case 2: 
-    do{
-    printf("Digite o numero da temporada que deseja ver:/n
-            1 temporada/n
-            2 temporada/n
-            3 temporada/n
-            4 temporada/n
-            5 temporada/n
-            6 temporada/n
-            7 temporada/n
-            8 temporada/n
-            Digite 0 para voltar");
-    scanf("%d", &temprd);
-    if (temprd >= 1 or temprd <= 8)
-      interf_temp(temp);
-    else if (temprd == 0)
-      closetemp = TRUE;
-    else 
-      printf("Comando invalido digite novamente./n");
-    
-    } while (closetemp != TRUE);
+  case 3:
+    /*Fecha o programa*/
     break;
-  
-  default: printf("Comando Invalido digite novamente./n");
+  default:
+    printf("\nOpcao Invalida, tente novamente!");
+    menu_principal();
     break;
   }
-  }while (closeip != TRUE);
+  return opcao;
 }
+
+int menu_temporada(int temporada_selecionda){
+  int opcao;
+  printf("\n1-Selecionar Episodio\n2-Visao Geral\n3-Voltar ao Menu Principal\n4-Fechar Programa\n");
+  printf("Selecione uma opcao: ");
+  scanf("%i", &opcao);
+  switch (opcao)
+  {
+  case 1:
+    /*Chamar a função que vai printar os episodios, a função deve retornar o numero do episodio
+    seleciondo, a partir daí chama a função resumo_episodio*/
+    printf("  Episodio tal selecionado\n");
+    printf("  Chama a funcao resumo_episodio\n");
+    menu_temporada(temporada_selecionda);
+    break;
+  case 2:
+    /*Chamar a função que vai printar o resumo geral da temporada selecionada*/
+    printf("  Resumo da temporada");
+    menu_temporada(temporada_selecionda);
+    break;
+  case 3:
+    menu_principal();
+    break;
+  case 4:
+    /*Fechar programa*/
+    break;
+  default:
+    printf("\nOpção Inválida, tente novamente!");
+    menu_temporada(temporada_selecionda);
+    break;
+  }
+}
+
+/* ############################################################################## */
+int main(){
+printf("\nBem vindo ao Sistema de Consultas de Game_of_Thrones\n");
+menu_principal();
+}
+
 /*Interface principal
     1-Selecionar temporada
+      Chama a função que vai buscar e printar todas as temporadas
     2-Visao Geral
+      Chama a função que vai buscar, calcular e printa o resumo
 
   Interface Temporada
     1-Selecionar Episodio
+      chama a função que printa os episodios dessa temporada
     2-Visao Geral da Temporada
+      chama a função que vai buscar, calcular e printa o resumo da temporada
     3-Voltar
   
   Interface Episodio
-    Resumo do episodio
+    Resumo do episodio: Chama a função que printa as inforamações do episodio
     1-Voltar para temporada
+      chama a função que printa interface Temporada
     2-Voltar para Tela inicial
+      chama a função que printa a interface inicial
 */
