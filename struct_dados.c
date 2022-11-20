@@ -32,7 +32,7 @@ int main(){
     char linha_arquivo[1700];
     int i = 0;
     char *delimitador = ";";
-    char c;
+
     struct_do_csv GOT_dados[73];
 
     arquivo = fopen("Game_of_Thronesv2.csv", "r");
