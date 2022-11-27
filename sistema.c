@@ -118,7 +118,6 @@ int menu_temporada(int temporada_selecionda, struct_do_csv dados[], int ultima_l
     menu_principal(dados, ultima_linha);
     break;
   case 4:
-    /*Fechar programa*/
     break;
   default:
     printf("\nOpcao Invalida, tente novamente!");
@@ -193,8 +192,6 @@ void resumo_episodio(int ep_selecionado, int temp_selecionada, struct_do_csv dad
   }
   menu_temporada(temp_selecionada, dados, ultima_linha);
 }
-
-
 
 int main(){
     struct_do_csv dados[73];
