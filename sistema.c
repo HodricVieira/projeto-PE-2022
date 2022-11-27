@@ -69,8 +69,9 @@ int ler_csv(struct_do_csv dados[]){
 
 int menu_principal(struct_do_csv dados[], int ultima_linha){
   int opcao;
+  printf("===========================================================");
   printf("\n1-Selecionar Temporada\n2-Visao Geral\n3-Fechar Programa\n");
-  printf("Selecione uma opcao: ");
+  printf("\nSelecione uma opcao: ");
   scanf("%i", &opcao);
   switch (opcao)
   {
@@ -98,8 +99,9 @@ int menu_principal(struct_do_csv dados[], int ultima_linha){
 
 int menu_temporada(int temporada_selecionda, struct_do_csv dados[], int ultima_linha){
   int opcao;
-  printf("\n\nTemporada %i Selecionada\n1-Selecionar Episodio\n2-Visao Geral\n3-Voltar ao Menu Principal\n4-Fechar Programa\n", temporada_selecionda);
-  printf("Selecione uma opcao: ");
+  printf("\n===========================================================");
+  printf("\nTemporada %i Selecionada\n\n1-Selecionar Episodio\n2-Visao Geral\n3-Voltar ao Menu Principal\n4-Fechar Programa\n", temporada_selecionda);
+  printf("\nSelecione uma opcao: ");
   scanf("%i", &opcao);
   switch (opcao)
   {
@@ -129,6 +131,8 @@ int menu_temporada(int temporada_selecionda, struct_do_csv dados[], int ultima_l
 int selecionar_temporada(struct_do_csv dados[], int ultima_linha){
     int contador, temp_selecionada, temp_anterior;
     temp_anterior = 0;
+    printf("\n===========================================================");
+    printf("\nTemporadas disponiveis\n");
     for (contador = 0; contador< ultima_linha; contador ++){
       if (dados[contador].temp != temp_anterior){
         printf("\n%i - Temporada", dados[contador].temp);
@@ -138,7 +142,7 @@ int selecionar_temporada(struct_do_csv dados[], int ultima_linha){
     printf("\nEscolha uma temporada atraves do numero: ");
     scanf("%i", &temp_selecionada);
     if (temp_selecionada > temp_anterior || temp_selecionada <= 0){
-      printf("\nOpcao invalida, tente novamente!");
+      printf("\nOpcao invalida, tente novamente!\n");
       selecionar_temporada(dados, ultima_linha);
     }
     else{
@@ -149,6 +153,8 @@ int selecionar_temporada(struct_do_csv dados[], int ultima_linha){
 int selecionar_episodio(int temp_selecionada, struct_do_csv dados[], int ultima_linha){
   int linha,ep_selecionado, qtd_ep;
   qtd_ep = 0;
+  printf("\n===========================================================");
+  printf("\nEpisodios da temporada %i\n", temp_selecionada);
   for (linha=0; linha<=ultima_linha; linha++){
     if (dados[linha].temp == temp_selecionada){
       printf("\n%i - %s", dados[linha].ep_temp, dados[linha].nome_ep);
@@ -158,7 +164,7 @@ int selecionar_episodio(int temp_selecionada, struct_do_csv dados[], int ultima_
   printf("\nSelecione o episodio atraves do numero: ");
   scanf("%i", &ep_selecionado);
   if (ep_selecionado>qtd_ep || ep_selecionado <= 0){
-    printf("\nOpcao invalida, tente novamente!");
+    printf("\nOpcao invalida, tente novamente!\n");
     selecionar_episodio(temp_selecionada, dados, ultima_linha);
   }
   else{
@@ -168,6 +174,8 @@ int selecionar_episodio(int temp_selecionada, struct_do_csv dados[], int ultima_
 
 void resumo_episodio(int ep_selecionado, int temp_selecionada, struct_do_csv dados[], int ultima_linha){
   int linha;
+  printf("\n===========================================================================================================================================");
+  printf("\nResumo do episodio\n");
   for (linha=0; linha<=ultima_linha; linha++){
     if (dados[linha].temp == temp_selecionada && dados[linha].ep_temp == ep_selecionado){
       printf("\nEpisodio %d\n"
@@ -178,7 +186,8 @@ void resumo_episodio(int ep_selecionado, int temp_selecionada, struct_do_csv dad
         "Avaliacao do IMDB: %.2f\n"
         "Avaliacao do Rotten Tomatoes: %.2f\n"
         "Avaliacao do Metacritic: %.2f\n"
-        "Sinopse do episodio: %s\n",
+        "Sinopse do episodio: %s\n"
+        "===========================================================================================================================================\n",
         dados[linha].ep_temp,
         dados[linha].nome_ep,
         dados[linha].duracao_ep,
@@ -193,9 +202,15 @@ void resumo_episodio(int ep_selecionado, int temp_selecionada, struct_do_csv dad
   menu_temporada(temp_selecionada, dados, ultima_linha);
 }
 
+void resumo_temporada(int temp_selecionada, struct_do_csv dados[], int ultima_linha){
+
+}
+
 int main(){
     struct_do_csv dados[73];
     int ultima_linha;
     ultima_linha = ler_csv(dados);
+    printf("===========================================================");
+    printf("\nBem vindo ao sistema de consulta de Game_of_Thrones\n");
     menu_principal(dados,ultima_linha);
 }
