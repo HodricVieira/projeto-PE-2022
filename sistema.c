@@ -206,6 +206,10 @@ void resumo_temporada(int temp_selecionada, struct_do_csv dados[], int ultima_li
 
 }
 
+void resumo_geral(struct_do_csv dados[], int ultima_linha){
+  
+}
+
 int main(){
     struct_do_csv dados[73];
     int ultima_linha;
