@@ -83,7 +83,7 @@ int menu_principal(struct_do_csv dados[], int ultima_linha){
     break;
   case 2:
     /*Chamar a função que vai printar o resumo geral*/
-    printf("  Resumo Geral");
+    resumo_geral(dados, ultima_linha);
     menu_principal(dados, ultima_linha);
     break;
   case 3:
@@ -113,7 +113,7 @@ int menu_temporada(int temporada_selecionda, struct_do_csv dados[], int ultima_l
     break;
   case 2:
     /*Chamar a função que vai printar o resumo geral da temporada selecionada*/
-    printf("  Resumo da temporada");
+    resumo_temporada(temporada_selecionda,dados,ultima_linha);
     menu_temporada(temporada_selecionda, dados, ultima_linha);
     break;
   case 3:
@@ -203,11 +203,89 @@ void resumo_episodio(int ep_selecionado, int temp_selecionada, struct_do_csv dad
 }
 
 void resumo_temporada(int temp_selecionada, struct_do_csv dados[], int ultima_linha){
+  int linha, qtd_ep = 0;
+  float soma_visu_temp = 0, media_imdb = 0, media_meta = 0, media_rotten = 0, visu = 0;
+  char nome[100];
+  char diretor[100];
+
+  
+
+  for (linha=0; linha<=ultima_linha; linha++){
+    if (dados[linha].temp == temp_selecionada){
+      soma_visu_temp = soma_visu_temp + dados[linha].visualizacoes;
+      media_meta = media_meta + dados[linha].Metacritic;
+      media_imdb = media_imdb + dados[linha].IMDB;
+      media_rotten = media_rotten + dados[linha].RotTomat;
+      qtd_ep = qtd_ep +1;
+       if(visu< dados[linha].visualizacoes){
+        visu = dados[linha].visualizacoes;
+
+    }
+    }
+    
+     
+  }
+  media_imdb = media_imdb/qtd_ep;
+  media_meta = media_meta/qtd_ep;
+  media_rotten = media_rotten/qtd_ep;
+  printf("\n===========================================================");
+  printf("\nResumo de temporada\n");
+  printf("\nVisualicoes Totais: %.2f Milhoes\nMedia do Metacritic: %.2f\nMedia do IMDB: %.2f\nMedia do Rotten Tomatoes: %.2f\n",
+  soma_visu_temp,media_meta,media_imdb,media_rotten);
+  for (linha=0; linha<=ultima_linha; linha++){
+    if(visu == dados[linha].visualizacoes && dados[linha].temp == temp_selecionada){
+      printf("\nEpisodio com mais visualizacoes da Serie\n");
+      printf("\nNome do Episodio: %s\nNome do Diretor: %s\nNumero de Views: %.2f Milhoes\n",
+      dados[linha].nome_ep,dados[linha].diretor,dados[linha].visualizacoes);
+    }
+  }
 
 }
-
 void resumo_geral(struct_do_csv dados[], int ultima_linha){
   
+    char nome[100];
+    char diretor[100];
+    float visu;
+  int linha,temp_selecionado, qtd_ep;
+  float soma_visu, media_imdb, media_meta, media_rotten;
+  soma_visu = 0;
+  media_imdb = 0;
+  media_meta = 0;
+  media_rotten = 0;
+  qtd_ep = 0;
+  visu = 0;
+
+  for (linha=0; linha<=ultima_linha; linha++){
+    if(visu< dados[linha].visualizacoes){
+      visu = dados[linha].visualizacoes;
+
+    }
+    
+    soma_visu = soma_visu + dados[linha].visualizacoes;
+    media_meta = media_meta + dados[linha].Metacritic;
+    media_imdb = media_imdb + dados[linha].IMDB;
+    media_rotten = media_rotten + dados[linha].RotTomat;
+    qtd_ep = qtd_ep +1;
+  }
+  
+
+  media_imdb = media_imdb/qtd_ep;
+  media_meta = media_meta/qtd_ep;
+  media_rotten = media_rotten/qtd_ep;
+  printf("\n===========================================================");
+  printf("\nResumo da Serie\n");
+  printf("\nVisualicoes Totais: %.2f Milhoes\nMedia do Metacritic: %.2f\nMedia do IMDB: %.2f\nMedia do Rotten Tomatoes: %.2f\n",
+  soma_visu,media_meta,media_imdb,media_rotten);
+  for (linha=0; linha<=ultima_linha; linha++){
+    if(visu == dados[linha].visualizacoes){
+      printf("\nEpisodio com mais visualizacoes da Serie\n");
+      printf("\nNome do Episodio: %s\nNome do Diretor: %s\nNumero de Views: %.2f Milhoes\n",
+      dados[linha].nome_ep,dados[linha].diretor,dados[linha].visualizacoes);
+    }
+  }
+ 
+
+
 }
 
 int main(){
