@@ -32,14 +32,10 @@ int ler_csv(struct_do_csv dados[]){
     int i = 0;
     char *delimitador = ";";
     arquivo = fopen("Game_of_Thronesv2.csv", "r");
-
     if (arquivo == NULL)
         printf("Erro na abertura do arquivo.\n");
-
     rewind(arquivo);
-
     while(fgets(linha_arquivo, 1700,arquivo) != NULL){
-
         dados[i].temp = atoi(strtok(linha_arquivo, delimitador));
         dados[i].ep_temp = atoi(strtok(NULL, delimitador));
         dados[i].ep_total = atoi(strtok(NULL, delimitador));
@@ -59,9 +55,7 @@ int ler_csv(struct_do_csv dados[]){
         strcpy(dados[i].filmagem, strtok(NULL, delimitador));
         strcpy(dados[i].livro, strtok(NULL, delimitador));
         strcpy(dados[i].sinopse, strtok(NULL, delimitador));
-
         i++;
-
     }
     fclose(arquivo);
     return i-1;
@@ -207,9 +201,6 @@ void resumo_temporada(int temp_selecionada, struct_do_csv dados[], int ultima_li
   float soma_visu_temp = 0, media_imdb = 0, media_meta = 0, media_rotten = 0, visu = 0;
   char nome[100];
   char diretor[100];
-
-  
-
   for (linha=0; linha<=ultima_linha; linha++){
     if (dados[linha].temp == temp_selecionada){
       soma_visu_temp = soma_visu_temp + dados[linha].visualizacoes;
@@ -221,9 +212,7 @@ void resumo_temporada(int temp_selecionada, struct_do_csv dados[], int ultima_li
         visu = dados[linha].visualizacoes;
 
     }
-    }
-    
-     
+    } 
   }
   media_imdb = media_imdb/qtd_ep;
   media_meta = media_meta/qtd_ep;
@@ -239,13 +228,12 @@ void resumo_temporada(int temp_selecionada, struct_do_csv dados[], int ultima_li
       dados[linha].nome_ep,dados[linha].diretor,dados[linha].visualizacoes);
     }
   }
-
 }
+
 void resumo_geral(struct_do_csv dados[], int ultima_linha){
-  
-    char nome[100];
-    char diretor[100];
-    float visu;
+  char nome[100];
+  char diretor[100];
+  float visu;
   int linha,temp_selecionado, qtd_ep;
   float soma_visu, media_imdb, media_meta, media_rotten;
   soma_visu = 0;
@@ -254,21 +242,16 @@ void resumo_geral(struct_do_csv dados[], int ultima_linha){
   media_rotten = 0;
   qtd_ep = 0;
   visu = 0;
-
   for (linha=0; linha<=ultima_linha; linha++){
     if(visu< dados[linha].visualizacoes){
       visu = dados[linha].visualizacoes;
-
     }
-    
     soma_visu = soma_visu + dados[linha].visualizacoes;
     media_meta = media_meta + dados[linha].Metacritic;
     media_imdb = media_imdb + dados[linha].IMDB;
     media_rotten = media_rotten + dados[linha].RotTomat;
     qtd_ep = qtd_ep +1;
   }
-  
-
   media_imdb = media_imdb/qtd_ep;
   media_meta = media_meta/qtd_ep;
   media_rotten = media_rotten/qtd_ep;
@@ -283,9 +266,6 @@ void resumo_geral(struct_do_csv dados[], int ultima_linha){
       dados[linha].nome_ep,dados[linha].diretor,dados[linha].visualizacoes);
     }
   }
- 
-
-
 }
 
 int main(){
