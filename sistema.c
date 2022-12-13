@@ -193,7 +193,6 @@ void resumo_episodio(int ep_selecionado, int temp_selecionada, struct_do_csv dad
         dados[linha].sinopse);
     }
   }
-  menu_temporada(temp_selecionada, dados, ultima_linha);
 }
 
 void resumo_temporada(int temp_selecionada, struct_do_csv dados[], int ultima_linha){
