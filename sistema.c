@@ -222,7 +222,7 @@ void resumo_temporada(int temp_selecionada, struct_do_csv dados[], int ultima_li
   soma_visu_temp,media_meta,media_imdb,media_rotten);
   for (linha=0; linha<=ultima_linha; linha++){
     if(visu == dados[linha].visualizacoes && dados[linha].temp == temp_selecionada){
-      printf("\nEpisodio com mais visualizacoes da Serie\n");
+      printf("\nEpisodio com mais visualizacoes da Temporada\n");
       printf("\nNome do Episodio: %s\nNome do Diretor: %s\nNumero de Views: %.2f Milhoes\n",
       dados[linha].nome_ep,dados[linha].diretor,dados[linha].visualizacoes);
     }
